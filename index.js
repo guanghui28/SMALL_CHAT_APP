@@ -75,7 +75,7 @@ io.on("connection", (socket) => {
 		});
 
 		// Update rooms list for everyone
-		io.emit("roomsList", {
+		io.emit("roomList", {
 			rooms: getAllActiveRooms(),
 		});
 	});
@@ -101,11 +101,11 @@ io.on("connection", (socket) => {
 	});
 
 	// Listening for a message event
-	socket.on("message", ({ name, message }) => {
+	socket.on("message", ({ name, text }) => {
 		const room = getUser(socket.id)?.room;
 
 		if (room) {
-			io.to(room).emit("message", buildMessage(name, message));
+			io.to(room).emit("message", buildMessage(name, text));
 		}
 	});
 
